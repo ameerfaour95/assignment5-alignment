@@ -1,4 +1,3 @@
-#%%
 from cs336_alignment import utils
 from drgrpo_grader import r1_zero_reward_fn
 import json
