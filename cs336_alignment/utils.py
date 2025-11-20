@@ -78,20 +78,19 @@ def get_response_log_probs(
     labels = labels.to(device, dtype=torch.long)
     
     model.eval()
-    with torch.no_grad():
-        logits = model(input_ids).logits # This return (batch_size, seq_len, vocab_size)
-        log_probs = F.log_softmax(logits, dim=-1)
-        wanted_labels = labels.unsqueeze(-1)
-        chosen_log_probs = log_probs.gather(dim=-1, index=wanted_labels).squeeze(-1)
+    logits = model(input_ids).logits # This return (batch_size, seq_len, vocab_size)
+    log_probs = F.log_softmax(logits, dim=-1)
+    wanted_labels = labels.unsqueeze(-1)
+    chosen_log_probs = log_probs.gather(dim=-1, index=wanted_labels).squeeze(-1)
 
-        result = {
-            "log_probs": chosen_log_probs
-        }
+    result = {
+        "log_probs": chosen_log_probs
+    }
 
-        if return_token_entropy:
-            result["token_entropy"] = compute_entropy(logits)
-        
-        return result
+    if return_token_entropy:
+        result["token_entropy"] = compute_entropy(logits)
+    
+    return result
 
 
 def masked_normalize(
