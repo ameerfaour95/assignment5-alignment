@@ -375,7 +375,7 @@ if __name__ == "__main__":
 
     models_dir = "/Users/ameefaour/Desktop/CS336_LLM_from_scratch/assignment5-alignment/cs336_alignment/models/"
     output_model_dir = f"filterd_sft_{config['train_batch_size']}_{config['learning_rate']}"
-    config['output_model_dir'] = output_model_dir
+    config['output_model_dir'] = models_dir + output_model_dir
 
     wandb.init(project = "cs336-alignment-sft", 
                 name = f"filtered_sft_{config['train_batch_size']}_{config['learning_rate']}", 

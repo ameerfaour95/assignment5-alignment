@@ -28,7 +28,7 @@ def tokenize_prompt_and_output(
     prompt_and_output_lens = max(len(x) for x in combined)
     
     inputs_id_full = torch.full(
-        size=(B,prompt_and_output_lens),
+        size=(B, prompt_and_output_lens),
         fill_value=pad_id,
     )
     response_mask = torch.zeros_like(inputs_id_full)
