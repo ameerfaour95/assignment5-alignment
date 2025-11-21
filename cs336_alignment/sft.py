@@ -5,7 +5,7 @@ import torch
 import wandb
 import random
 from transformers import AutoModelForCausalLM, AutoTokenizer, PreTrainedModel, PreTrainedTokenizer
-from typing import Optional, Dict, List, Tuple
+from typing import Optional, Dict, List
 from vllm.model_executor import set_random_seed as vllm_set_random_seed
 from vllm import LLM, SamplingParams
 from unittest.mock import patch
