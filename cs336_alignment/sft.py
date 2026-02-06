@@ -1,14 +1,18 @@
-from cs336_alignment import utils
-from drgrpo_grader import r1_zero_reward_fn
 import json
-import torch
-import wandb
 import random
-from transformers import AutoModelForCausalLM, AutoTokenizer, PreTrainedModel, PreTrainedTokenizer
-from typing import Optional, Dict, List
-from vllm.model_executor import set_random_seed as vllm_set_random_seed
-from vllm import LLM, SamplingParams
+from typing import Dict, List, Optional
 from unittest.mock import patch
+
+import torch
+from drgrpo_grader import r1_zero_reward_fn # pylint: disable=import-error
+from transformers import (AutoModelForCausalLM, AutoTokenizer, PreTrainedModel,
+                          PreTrainedTokenizer)
+from vllm import LLM, SamplingParams
+from vllm.model_executor import set_random_seed as vllm_set_random_seed
+
+import wandb
+from cs336_alignment import utils
+
 
 def set_seed(seed: int):
     random.seed(seed)
@@ -298,6 +302,7 @@ def load_models(
 
 def train_start(
     config: dict,
+    start_training_step: int,
     use_flash_attention_2: bool,
     use_vllm_for_eval: bool,
     eval_sampling_params: Optional[SamplingParams],
@@ -396,6 +401,7 @@ if __name__ == "__main__":
 
     train_start(
         config,
+        start_training_step,
         use_flash_attention_2=use_flash_attention_2,
         use_vllm_for_eval=False,
         eval_sampling_params=None,

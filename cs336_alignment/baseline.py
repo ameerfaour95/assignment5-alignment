@@ -82,7 +82,13 @@ def run_math_baseline(model_path: str, json_path: str, temperature: float, top_p
         stop=["</answer>"], include_stop_str_in_output=True
     )
     llm = LLM(model=model_path)
-    evaluate_vllm(llm, r1_zero_reward_fn, examples, sampling_params)
+    evaluate_vllm(
+        vllm_model=llm,
+        reward_fn=r1_zero_reward_fn,
+        prompts=[ex["prompt"] for ex in examples],
+        answers=[ex["true_answer"] for ex in examples],
+        eval_sampling_params=sampling_params,
+    )
         
 def main():
     parser = argparse.ArgumentParser(description="Evaluate Qwen2.5 Math model on MATH dataset")
